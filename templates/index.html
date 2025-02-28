@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hydroponic Vision</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="text-center my-4">
+        <h1>Hydroponic Vision</h1>
+        <p class="lead">Upload a plant image to get AI-powered growth insights and recommendations</p>
+      </header>
+
+      <div class="row">
+        <!-- Upload and Classification Section -->
+        <div class="col-md-5">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>Plant Image Upload</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="imageUpload" class="form-label">Choose an image of your plant</label>
+                <input class="form-control" type="file" id="imageUpload" accept="image/*" />
+              </div>
+              <div class="mb-3 text-center">
+                <button id="uploadBtn" class="btn btn-primary">Upload & Analyze</button>
+              </div>
+              <div id="uploadStatus" class="alert alert-info d-none">Uploading and analyzing image...</div>
+              <div id="imagePreview" class="text-center mt-3">
+                <img id="previewImage" src="{{ url_for('static', filename='img/image.png') }}" class="img-fluid rounded" alt="Plant preview" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>Classification Results</h5>
+            </div>
+            <div class="card-body">
+              <div id="classificationResult">
+                <p class="text-center text-muted">Plant classification will appear here after image upload</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plant Data Section -->
+        <div class="col-md-7">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>Plant Insights</h5>
+            </div>
+            <div class="card-body">
+              <div id="plantData">
+                <p class="text-center text-muted">Plant data will appear here after classification</p>
+              </div>
+              <div id="plantSummary" class="mb-4 d-none">
+                <h6>Summary:</h6>
+                <p id="summaryText"></p>
+              </div>
+              <div id="kinyarwandaTranslation" class="mb-4 d-none">
+                <h6>Kinyarwanda Translation:</h6>
+                <p id="translationText"></p>
+              </div>
+              <div id="optimalConditions" class="mb-4 d-none">
+                <h6>Optimal Growing Conditions:</h6>
+                <ul id="conditionsList"></ul>
+              </div>
+              <div id="careTips" class="mb-4 d-none">
+                <h6>Care Tips:</h6>
+                <ul id="tipsList"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h5>Temperature by Growth Stage</h5>
+            </div>
+            <div class="card-body">
+              <div id="chartContainer">
+                <canvas id="temperatureChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google Translate Widget -->
+    <div class="gtranslate_wrapper"></div>
+    <script>
+      window.gtranslateSettings = {
+        default_language: 'en',
+        native_language_names: true,
+        detect_browser_language: true,
+        languages: ['en', 'fr', 'rw', 'es', 'sw', 'zh-CN'],
+        globe_color: '#66aaff',
+        wrapper_selector: '.gtranslate_wrapper',
+        horizontal_position: 'right',
+        vertical_position: 'top',
+        globe_size: 40
+      }
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/globe.js" defer></script>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- MobileNet model -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/classifier.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
