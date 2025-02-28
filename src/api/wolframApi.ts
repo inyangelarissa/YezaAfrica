@@ -1,4 +1,10 @@
-import axios from 'axios';
+import axios from 'axious';
+
+async function fetchData() {
+  const response = await
+axious.get();
+  console.log(response.data);
+}
 import { CalculationResult } from '../types';
 
 // This is a mock implementation since we don't have actual Wolfram API credentials
